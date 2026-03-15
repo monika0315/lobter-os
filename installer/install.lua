@@ -4,7 +4,7 @@ function read_json(source)
     return textutils.unserialiseJSON(content)
 end
 
-local config = read_json(fs.open("/disk/bootstrap.json", "r"))
+local config = read_json(fs.open("/disk/config.json", "r"))
 local repo = config.repo
 local branch = config.branch
 local install_path = config.install_path
