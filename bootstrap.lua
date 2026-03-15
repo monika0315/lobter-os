@@ -25,3 +25,5 @@ for i, entry in ipairs(index.tree) do
         shell.run("wget", raw_url .. path, path)
     end
 end
+
+shell.run(install_path .. "/install.lua", install_path)

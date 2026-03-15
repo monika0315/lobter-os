@@ -1,1 +1,2 @@
-print("test")
+local sys_root = ...
+fs.copy(sys_root .. "/startup.lua", "startup")
