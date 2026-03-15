@@ -6,8 +6,8 @@ local raw_url = "https://raw.githubusercontent.com/" .. repo .. "/refs/heads/" .
 
 fs.makeDir(install_root)
 shell.setDir(install_root)
-for _, file in ipairs(fs.list(".")) do
-    fs.delete(file)
+for _, file in ipairs(fs.list(install_root)) do
+    fs.delete(fs.combine(install_root, file))
 end
 
 local tree_res = http.get(tree_url)
