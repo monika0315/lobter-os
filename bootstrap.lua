@@ -4,7 +4,7 @@ function read_string(source)
     return content
 end
 
-local file = read_string(fs.open("bootstrap.json", "r"))
+local file = read_string(fs.open("/disk/bootstrap.json", "r"))
 local config = textutils.unserialiseJSON(file)
 local repo = config.repo
 local branch = config.branch
