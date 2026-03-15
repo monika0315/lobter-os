@@ -5,6 +5,11 @@ local raw_url = "https://raw.githubusercontent.com/" .. repo .. "/refs/heads/" .
 
 fs.delete("bootstrap.bak.lua")
 fs.move("bootstrap.lua", "bootstrap.bak.lua")
+for _, file in ipairs(fs.list(".")) do
+    if file ~= "bootstrap.bak.lua" then
+        fs.delete(file)
+    end
+end
 
 local tree_res = http.get(tree_url)
 local tree_json = tree_res.readAll()
