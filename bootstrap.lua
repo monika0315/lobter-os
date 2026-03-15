@@ -13,6 +13,6 @@ for i, entry in ipairs(index.tree) do
         local path = entry.path
         print("Downloading " .. path)
         fs.makeDir(fs.getDir(path))
-        shell.run("wget", raw_base .. path, path)
+        shell.run("wget", raw_url .. path, path)
     end
 end
