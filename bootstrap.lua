@@ -7,11 +7,12 @@ local tree_res = http.get(tree_url)
 local tree_json = tree_res.readAll()
 tree_res.close()
 
+fs.delete("bootstrap.bak.lua")
+fs.move("bootstrap.lua", "bootstrap.bak.lua")
 local index = textutils.unserializeJSON(tree_json)
 for i, entry in ipairs(index.tree) do
     if entry.type == "blob" then
         local path = entry.path
-        print("Downloading " .. path)
         fs.makeDir(fs.getDir(path))
         shell.run("wget", raw_url .. path, path)
     end
