@@ -27,6 +27,6 @@ for i, entry in ipairs(index.tree) do
     end
 end
 
-fs.copy(installer_root .. "/startup.lua", "/startup")
+fs.copy(installer_root .. "/startup.copy.lua", "/startup.lua")
 settings.set("sys.root", install_path)
 settings.save()
