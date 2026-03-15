@@ -6,4 +6,8 @@ local h = http.get(file_index)
 local json = h.readAll()
 h.close()
 
-print(json)
+local data = textutils.unserializeJSON(json)
+
+for i, file in ipairs(data.tree) do
+    print("" .. i .. ": " .. file.path)
+end
