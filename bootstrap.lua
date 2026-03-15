@@ -7,16 +7,12 @@ local tree_res = http.get(tree_url)
 local tree_json = tree_res.readAll()
 tree_res.close()
 
-local data = textutils.unserializeJSON(json)
-
-for i, entry in ipairs(data.tree) do
+local index = textutils.unserializeJSON(tree_json)
+for i, entry in ipairs(index.tree) do
     if entry.type == "blob" then
         local path = entry.path
-
         print("Downloading " .. path)
-
         fs.makeDir(fs.getDir(path))
-
         shell.run("wget", raw_base .. path, path)
     end
 end
