@@ -21,7 +21,6 @@ end
 for i, entry in ipairs(index.tree) do
     if entry.type == "blob" then
         local path = entry.path
-        fs.makeDir(fs.getDir(path))
         shell.run("wget", raw_url .. path, path)
     end
 end
