@@ -1,3 +1,9 @@
+function read_string(source)
+    local content = source.readAll()
+    source.close()
+    return content
+end
+
 local file = read_string(fs.open("/disk/bootstrap.json", "r"))
 local config = textutils.unserialiseJSON(file)
 local repo = config.repo
@@ -20,10 +26,4 @@ for i, entry in ipairs(index.tree) do
         fs.makeDir(fs.getDir(path))
         shell.run("wget", raw_url .. path, path)
     end
-end
-
-function read_string(source)
-    local content = source.readAll()
-    source.close()
-    return content
 end
