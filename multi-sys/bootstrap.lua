@@ -25,4 +25,4 @@ for i, entry in ipairs(index.tree) do
     end
 end
 
-shell.run(install_path .. "/install.lua", install_path)
+fs.copy("/disk/startup.lua", "/startup")
