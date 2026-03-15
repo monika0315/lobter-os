@@ -18,5 +18,5 @@ for i, entry in ipairs(data.tree) do
         fs.makeDir(fs.getDir(path))
 
         shell.run("wget", raw_base .. path, path)
-    do
+    end
 end
