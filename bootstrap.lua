@@ -1,13 +1,22 @@
 local repo = "monika0315/lobter-os"
 local branch = "dev"
-local file_index = "https://api.github.com/repos/" .. repo .. "/git/trees/" .. branch .. "?recursive=1"
+local tree_url = "https://api.github.com/repos/" .. repo .. "/git/trees/" .. branch .. "?recursive=1"
+local raw_url = "https://raw.githubusercontent.com/" .. repo .. "/refs/heads/" .. branch .. "/"
 
-local h = http.get(file_index)
-local json = h.readAll()
-h.close()
+local tree_res = http.get(tree_url)
+local tree_json = tree_res.readAll()
+tree_res.close()
 
 local data = textutils.unserializeJSON(json)
 
-for i, file in ipairs(data.tree) do
-    print("" .. i .. ": " .. file.path)
+for i, entry in ipairs(data.tree) do
+    if entry.type == "blob" then
+        local path = entry.path
+
+        print("Downloading " .. path)
+
+        fs.makeDir(fs.getDir(path))
+
+        shell.run("wget", raw_base .. path, path)
+    do
 end
