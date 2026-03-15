@@ -1,14 +1,13 @@
 local repo = "monika0315/lobter-os"
 local branch = "dev"
+local install_root = "/lobter"
 local tree_url = "https://api.github.com/repos/" .. repo .. "/git/trees/" .. branch .. "?recursive=1"
 local raw_url = "https://raw.githubusercontent.com/" .. repo .. "/refs/heads/" .. branch .. "/"
 
-fs.delete("bootstrap.bak.lua")
-fs.move("bootstrap.lua", "bootstrap.bak.lua")
+fs.makeDir(install_root)
+shell.setDir(install_root)
 for _, file in ipairs(fs.list(".")) do
-    if file ~= "bootstrap.bak.lua" then
-        fs.delete(file)
-    end
+    fs.delete(file)
 end
 
 local tree_res = http.get(tree_url)
