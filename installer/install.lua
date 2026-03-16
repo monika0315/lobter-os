@@ -13,20 +13,34 @@ local tree_url = "https://api.github.com/repos/" .. repo .. "/git/trees/" .. bra
 local raw_url = "https://raw.githubusercontent.com/" .. repo .. "/refs/heads/" .. branch .. "/"
 local index = read_json(http.get(tree_url))
 
-if fs.exists(install_path) then
-    fs.delete(install_path)
-end
+function install_os()
+    if fs.exists(install_path) then
+        fs.delete(install_path)
+    end
 
-fs.makeDir(install_path)
-shell.setDir(install_path)
+    fs.makeDir(install_path)
+    shell.setDir(install_path)
 
-for i, entry in ipairs(index.tree) do
-    if entry.type == "blob" then
-        local path = entry.path
-        shell.run("wget", raw_url .. path, path)
+    for i, entry in ipairs(index.tree) do
+        if entry.type == "blob" then
+            local path = entry.path
+            shell.run("wget", raw_url .. path, path)
+        end
     end
 end
 
-fs.copy(installer_root .. "/startup.copy.lua", "/startup.lua")
-settings.set("sys.root", install_path)
-settings.save()
+function install_bootloader()
+    fs.copy(installer_root .. "/bootloader.lua", "/startup.lua")
+
+    settings.set("boot.path", install_path)
+    settings.define("boot.path", {
+        description = "The path containing the default OS.",
+        default = nil,
+        type = "string"
+    })
+
+    settings.save()
+end
+
+install_os()
+install_bootloader()
