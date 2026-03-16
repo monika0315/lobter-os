@@ -1,7 +1,3 @@
-settings.load()
-local sys_root = settings.get("sys.root")
-package.path = package.path .. ";" .. sys_root .. "/modules/?.lua"
-
-local sys = require("sys")
+local sys = require("lobter.sys")
 shell.run("clear")
 print(sys.name .. " (" .. sys.version .. ")")
