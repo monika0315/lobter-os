@@ -12,7 +12,7 @@ local output_path = args[2]
 local tree_res = http.get(tree_url)
 local tree_json = tree_res.readAll()
 tree_res.close()
-local tree = textutils.unserialiseJSON(tree_json)
+local tree = textutils.unserialiseJSON(tree_json).tree
 
 function get(src, dest)
     fs.makeDir(fs.getDir(dest))
